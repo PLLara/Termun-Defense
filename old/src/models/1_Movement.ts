@@ -1,4 +1,4 @@
-import { Position } from "./1_Position";
+import { Location } from "./1_Position";
 
 export class Movement {
   constructor(
@@ -13,7 +13,7 @@ export class Movement {
     this.down = down;
   }
 
-  public moveLeft(position: Position, delta = 1) {
+  public moveLeft(position: Location, delta = 1) {
     if (position.x > 1 && this.left) {
       position.x -= 1;
     }
@@ -21,7 +21,7 @@ export class Movement {
       this.moveLeft(position, delta - 1);
     }
   }
-  public moveUp(position: Position, delta = 1) {
+  public moveUp(position: Location, delta = 1) {
     if (position.y > 1 &&this.up) {
       position.y -= 1;
     }
@@ -30,7 +30,7 @@ export class Movement {
     }
   }
 
-  public moveRight(position: Position, delta = 1) {
+  public moveRight(position: Location, delta = 1) {
     if (this.right) {
       position.x += 1;
     }
@@ -39,7 +39,7 @@ export class Movement {
     }
   }
 
-  public moveDown(position: Position, delta = 1) {
+  public moveDown(position: Location, delta = 1) {
     if (this.down) {
       position.y += 1;
     }

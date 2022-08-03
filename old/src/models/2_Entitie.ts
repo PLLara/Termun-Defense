@@ -1,5 +1,5 @@
 import { Movement } from "./1_Movement";
-import { Position } from "./1_Position";
+import { Location } from "./1_Position";
 import { Sprite } from "./2_Sprite";
 
 export type ColisionEventProps = {
@@ -30,6 +30,8 @@ export class ColisionEvent {
   middleLeft: boolean;
   middleRight: boolean;
   samePosition: boolean;
+
+
   entity: Entitie | null | undefined;
 
   constructor(props: ColisionEventProps) {
@@ -70,14 +72,16 @@ interface EntitieEvents {
 
 export class Entitie implements EntitieEvents {
   constructor(
-    public position: Position,
+    public location: Location,
     public sprite: Sprite,
+    public movement = new Movement(false, false, false, false),
+    public colisionEvents = new Array<ColisionEvent>(),
+
     public colision = false,
     public drawPriority = 0,
-    public movement = new Movement(false, false, false, false),
-    public colisionEvents = new Array<ColisionEvent>()
+
   ) {
-    this.position = position;
+    this.location = location;
     this.sprite = sprite;
     this.colision = colision;
   }
@@ -99,7 +103,7 @@ export class Entitie implements EntitieEvents {
       )
       .join(" AND ")}`;
     return `${this.sprite.render()} ${JSON.stringify(
-      this.position
+      this.location
     )} |  c: ( ${colisions} )`;
   }
 

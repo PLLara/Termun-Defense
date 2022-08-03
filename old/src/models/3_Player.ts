@@ -1,14 +1,14 @@
 import { BgColors, Colors } from "../constants/Colors";
 import { Game } from "../core/Game";
 import { Movement } from "./1_Movement";
-import { Position } from "./1_Position";
+import { Location } from "./1_Position";
 import { ColisionEvent, Entitie } from "./2_Entitie";
 import { setCursorPosition, Sprite } from "./2_Sprite";
 
 export class Player extends Entitie {
   constructor(public lastJump = 0) {
     super(
-      new Position(),
+      new Location(),
       new Sprite(" ", Colors.Blue, BgColors.Blue),
       true,
       1,
@@ -21,18 +21,18 @@ export class Player extends Entitie {
     switch (event) {
       case "w":
         if (!this.movement.down) {
-          this.movement.moveUp(this.position, 4);
+          this.movement.moveUp(this.location, 4);
         }
         this.lastJump = parseInt(Game.time.toPrecision(2)) +1 ;
         break;
       case "s":
-        this.movement.moveDown(this.position, 1);
+        this.movement.moveDown(this.location, 1);
         break;
       case "a":
-        this.movement.moveLeft(this.position);
+        this.movement.moveLeft(this.location);
         break;
       case "d":
-        this.movement.moveRight(this.position);
+        this.movement.moveRight(this.location);
         break;
     }
   }
@@ -48,7 +48,7 @@ export class Player extends Entitie {
       this.handleColisionEvent(event);
     });
     if ((Game.time - this.lastJump) % 100 == 0) {
-      this.movement.moveDown(this.position, 1);
+      this.movement.moveDown(this.location, 1);
     }
   }
 

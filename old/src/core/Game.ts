@@ -1,7 +1,6 @@
-import { green } from "./../../node_modules/iohook/node_modules/colorette/index.d";
 import { BgColors, Colors } from "../constants/Colors";
 import { Movement } from "../models/1_Movement";
-import { Position } from "../models/1_Position";
+import { Location } from "../models/1_Position";
 import {
   ColisionEvent,
   ColisionEventProps,
@@ -57,7 +56,7 @@ export class Canvas {
         }
 
         var entitiesAtPosition = this.entities.filter(
-          (entity) => entity.position.x === column && entity.position.y === row
+          (entity) => entity.location.x === column && entity.location.y === row
         );
 
         entitiesAtPosition.sort((a, b) => {
@@ -91,7 +90,7 @@ export class Game {
         new Player(),
 
         new Entitie(
-          new Position(13, 4),
+          new Location(13, 4),
           new Sprite(" ", Colors.Blue, BgColors.Green),
           true,
           1,
@@ -99,7 +98,7 @@ export class Game {
         ),
 
         new Entitie(
-          new Position(12, 7),
+          new Location(12, 7),
           new Sprite(" ", Colors.Blue, BgColors.Green),
           true,
           1,
@@ -107,7 +106,7 @@ export class Game {
         ),
 
         new Entitie(
-          new Position(9, 10),
+          new Location(9, 10),
           new Sprite(" ", Colors.Blue, BgColors.Green),
           true,
           1,
@@ -115,7 +114,7 @@ export class Game {
         ),
 
         new Entitie(
-          new Position(9, 15),
+          new Location(9, 15),
           new Sprite(" ", Colors.Blue, BgColors.Green),
           true,
           1,
@@ -123,7 +122,7 @@ export class Game {
         ),
 
         new Entitie(
-          new Position(9, 20),
+          new Location(9, 20),
           new Sprite(" ", Colors.Blue, BgColors.Green),
           true,
           1,
@@ -131,7 +130,7 @@ export class Game {
         ),
 
         new Entitie(
-          new Position(9, 25),
+          new Location(9, 25),
           new Sprite(" ", Colors.Blue, BgColors.Green),
           true,
           1,
@@ -205,7 +204,7 @@ export class Game {
         var colisions: ColisionEvent[] = [];
 
         // ! Detecting colisions with walls
-        if (entity.position.x === this.currentCanvas.width - 2) {
+        if (entity.location.x === this.currentCanvas.width - 2) {
           var colisionProps: ColisionEventProps = {
             top: false,
             topLeft: false,
@@ -219,7 +218,7 @@ export class Game {
           };
           colisions.push(new ColisionEvent(colisionProps));
         }
-        if (entity.position.y === this.currentCanvas.height - 2) {
+        if (entity.location.y === this.currentCanvas.height - 2) {
           var colisionProps: ColisionEventProps = {
             top: false,
             topLeft: false,
@@ -240,30 +239,30 @@ export class Game {
             return;
           }
 
-          const sameX = entity2.position.x === entity.position.x;
-          const sameY = entity2.position.y === entity.position.y;
-          const left = entity2.position.x - entity.position.x === -1;
-          const right = entity2.position.x - entity.position.x === 1;
+          const sameX = entity2.location.x === entity.location.x;
+          const sameY = entity2.location.y === entity.location.y;
+          const left = entity2.location.x - entity.location.x === -1;
+          const right = entity2.location.x - entity.location.x === 1;
 
-          const top = sameX && entity2.position.y - entity.position.y === -1;
+          const top = sameX && entity2.location.y - entity.location.y === -1;
           const topLeft =
-            entity2.position.x - entity.position.x === -1 &&
-            entity2.position.y - entity.position.y === -1;
+            entity2.location.x - entity.location.x === -1 &&
+            entity2.location.y - entity.location.y === -1;
           const topRight =
-            entity2.position.x - entity.position.x === 1 &&
-            entity2.position.y - entity.position.y === -1;
+            entity2.location.x - entity.location.x === 1 &&
+            entity2.location.y - entity.location.y === -1;
 
           const samePosition = sameY && sameX;
           const middleLeft = sameY && left;
           const middleRight = sameY && right;
 
-          const bottom = sameX && entity2.position.y - entity.position.y === 1;
+          const bottom = sameX && entity2.location.y - entity.location.y === 1;
           const bottomLeft =
-            entity2.position.x - entity.position.x === -1 &&
-            entity2.position.y - entity.position.y === 1;
+            entity2.location.x - entity.location.x === -1 &&
+            entity2.location.y - entity.location.y === 1;
           const bottomRight =
-            entity2.position.x - entity.position.x === 1 &&
-            entity2.position.y - entity.position.y === 1;
+            entity2.location.x - entity.location.x === 1 &&
+            entity2.location.y - entity.location.y === 1;
 
           if (
             top ||

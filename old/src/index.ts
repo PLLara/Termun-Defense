@@ -8,13 +8,11 @@ stdin.on("data", function (key) {
   if (key.toString() === "\u0003") {
     process.exit();
   }
-
   Game.canvases.forEach((canvas) => {
     canvas.entities.forEach((entity) => {
       entity.handleKeyboardEvent(key.toString());
     });
   });
-
 });
 
 async function main() {
